@@ -1,3 +1,66 @@
+这是自己项目的配置，实现ldap认证，主要做了如下更改
+1. 依赖包
+        ```
+            // CAS dependencies/modules may be listed here statically...
+            implementation "org.apereo.cas:cas-server-webapp-init:${casServerVersion}"
+            implementation "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"   // add  用于ldap认证
+            implementation "org.apereo.cas:cas-server-support-json-service-registry:${project.'cas.version'}"  // add  用于服务注册
+        ```
+2. 其他的都是配置文件的修改
+   - `cas.properties`
+        ```
+        cas.server.name=https://127.0.0.1:8443
+        cas.server.prefix=${cas.server.name}/cas
+
+        logging.config=file:/etc/cas/config/log4j2.xml
+
+        cas.service-registry.core.init-from-json=true
+        cas.serviceRegistry.json.location=file:/etc/cas/services
+
+        cas.authn.oauth.grants.resourceOwner.requireServiceHeader=true
+        cas.authn.oauth.userProfileViewType=NESTED
+
+        cas.authn.policy.requiredHandlerAuthenticationPolicyEnabled=false
+
+        cas.authn.attributeRepository.stub.attributes.email=casuser@example.org
+        #REST API JSON
+        cas.rest.attributeName=email
+        cas.rest.attributeValue=.+example.*
+
+
+        # 开启debug 模式
+        logging.level.org.apereo.cas=DEBUG
+
+        # don't allow login of built-in users
+        cas.authn.accept.enabled=false
+
+        cas.tgc.crypto.encryption.key=WHlJ0RAQFlWO2xIqBk6DWJikhztVkLdc4ZH9FAEfgCs
+        cas.tgc.crypto.signing.key=8aPt64LTmOSjIK-5_TafK0XmRmp_NgCv67tXKs73pKhDGOtt6zygWlrYc-AC0LEDV7-x32yDM44gDDoZ7QhPwg
+        cas.webflow.crypto.signing.key=2GsxWaSAG5YBYNEbROHPgkZxgNR3Fu7BQQiifj1VrI-4ZtwEb5YnIHxaopgpc_Gs4E-ywpM_7jqx9s7gY6PLhw
+        cas.webflow.crypto.encryption.key=i22Sc5RvsXRRHqAiaLjjCA
+
+        ldap-url=ldap://xxxx:389
+        ldap-dnformat=cn=%s,cn=users,dc=xxxx,dc=com
+        ldap-base-dn=CN=Users,DC=xxxx,DC=com
+        # 这里要参考自己的ad域接口
+        ldap-bind-dn=CN=xxxx,OU=xxx,OU=xxxx,DC=xxxx,DC=com
+        # password
+        ldap-bind-credential=xxxxxx    
+
+        cas.authn.ldap[0].password-policy.groovy.location=
+        cas.authn.ldap[0].principal-transformation.groovy.location=
+        cas.authn.ldap[0].base-dn=${ldap-base-dn}
+        cas.authn.ldap[0].bind-dn=${ldap-bind-dn}
+        cas.authn.ldap[0].bind-credential=${ldap-bind-credential}
+        cas.authn.ldap[0].dn-format=${ldap-dnformat}
+        cas.authn.ldap[0].ldap-url=${ldap-url}
+        cas.authn.ldap[0].search-filter=(cn={user})
+        cas.authn.ldap[0].type=DIRECT
+        cas.authn.ldap[0].password-encoder.encoding-algorithm=
+        cas.authn.ldap[0].password-encoder.type=NONE
+
+        ```
+
 CAS Overlay Template [![Build Status](https://travis-ci.org/apereo/cas-overlay-template.svg?branch=master)](https://travis-ci.org/apereo/cas-overlay-template)
 =======================
 
