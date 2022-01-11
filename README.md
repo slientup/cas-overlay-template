@@ -1,12 +1,12 @@
 #### 修改地方
 这是自己项目的配置，实现ldap认证，主要做了如下更改
 1. 依赖包
-        ```
+```
             // CAS dependencies/modules may be listed here statically...
             implementation "org.apereo.cas:cas-server-webapp-init:${casServerVersion}"
             implementation "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"   // add  用于ldap认证
             implementation "org.apereo.cas:cas-server-support-json-service-registry:${project.'cas.version'}"  // add  用于服务注册
-        ```
+```
 2. 其他的都是配置文件的修改
    - `cas.properties`
         ```
