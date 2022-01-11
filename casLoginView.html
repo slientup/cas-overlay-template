@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>统一认证中心</title>
+    <style type="text/css">
+        * {
+
+            padding: 0;
+            margin: 0;
+            font-family: 'Open Sans Light';
+            letter-spacing: .05em;
+        }
+
+        html {
+
+            height: 100%;
+        }
+
+        body {
+
+            height: 100%;
+        }
+
+        .container {
+
+            height: 100%;
+            background-color: #99CCFF;
+        }
+
+        .login-wrapper {
+
+            background-color: #fff;
+            width: 250px;
+            height: 500px;
+            padding: 0 50px;
+            position: relative;
+            left: 50%;
+            border-radius: 15px;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .login-wrapper .header {
+
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .login-wrapper .form-wrapper .input-item {
+
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            border: none;
+            padding: 10px;
+            border-bottom: 2px solid rgb(128, 125, 125);
+            font-size: 15px;
+            outline: none;
+        }
+
+        .login-wrapper .form-wrapper .input-item::placeholder {
+
+            text-transform: uppercase;
+        }
+
+        .login-wrapper .form-wrapper .btn {
+
+            text-align: center;
+            padding: 5px;
+            margin-top: 40px;
+            width: 100%;
+            background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);;
+            color: #fff;
+        }
+
+        .login-wrapper .msg {
+
+            text-align: center;
+            line-height: 80px;
+        }
+
+        .login-wrapper .msg a {
+
+            text-decoration-line: none;
+            color: #a6c1ee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="login-wrapper">
+        <div class="header">统一认证中心</div>
+        <form method="post" th:object="${credential}" action="login" class="form-wrapper">
+            <input type="text" name="username" placeholder="username" th:field="*{username}"
+                   th:accesskey="#{screen.welcome.label.netid.accesskey}" class="input-item">
+            <input type="password" name="password" placeholder="password"
+                   th:accesskey="#{screen.welcome.label.password.accesskey}"
+                   th:field="*{password}" class="input-item">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="submit"/>
+            <input type="hidden" name="geolocation"/>
+            <button id="login" class="btn" th:value="#{screen.welcome.button.login}" type="submit">Login</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
