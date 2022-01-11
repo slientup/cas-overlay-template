@@ -62,6 +62,15 @@
 
         ```
 
+
+自定义login页面：
+
+casLoginView.html
+
+1. 存放目录：src/main/resources/templates/login/casLoginView.html
+2. 设置主题：在`src/main/resources/application.yml`文件中增加 `cas.theme.defaultThemeName=login`
+
+
 CAS Overlay Template [![Build Status](https://travis-ci.org/apereo/cas-overlay-template.svg?branch=master)](https://travis-ci.org/apereo/cas-overlay-template)
 =======================
 
